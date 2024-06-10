@@ -1,0 +1,21 @@
+{% extends 'TRFC_VSLZR/layout.html' %}
+
+{% block body %}
+    <div style="background-color:#7a818a" class="jumbotron text-center">
+        <h1>Traffic Visualizer: File {{ object.tag }} </h1>
+        <p class="lead">Select the packet you would like to track:
+    </div>
+    <div style="margin-left: 4rem;" class="container">
+        <div class="col-md-8">
+            <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <small>Uploaded on {{ object.date|date:"F d, Y" }} at {{ object.date|date:"H:i." }}</small>
+                    </div>
+                    <h2><a class="article-title" href="#">{{ object.tag }}</a></h2>
+                    <p class="article-content">{{ object.json.name }}</p>
+                </div>
+            </article>
+        </div>
+    </div>
+{% endblock %}

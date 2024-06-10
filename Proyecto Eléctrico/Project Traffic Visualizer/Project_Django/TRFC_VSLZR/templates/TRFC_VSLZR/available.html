@@ -1,0 +1,28 @@
+{% extends 'TRFC_VSLZR/layout.html' %}
+
+{% block body %}
+<div style="background-color:#7a818a" class="jumbotron text-center">
+    <h1>File List</h1>
+</div>
+{% for uploaded_file in uploaded_files %}
+<div style="margin-left: 4rem;" class="container">
+    <div class="col-md-8">
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <small>Uploaded on {{ uploaded_file.date|date:"F d, Y" }} at {{ uploaded_file.date|date:"H:i." }}</small>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <h2><a class="article-title" href="{% url 'app-file-page' uploaded_file.id %}">{{ uploaded_file.tag }}</a></h2>
+                    <form style="margin-top: 4px;" action="{% url 'app-delete' uploaded_file.id %}">
+                        <input class="btn btn-outline-light" type="submit" value="Delete" />
+                    </form>
+                </div>
+                <p class="article-content">{{ uploaded_file.json.name }}</p>
+            </div>
+        </article>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}

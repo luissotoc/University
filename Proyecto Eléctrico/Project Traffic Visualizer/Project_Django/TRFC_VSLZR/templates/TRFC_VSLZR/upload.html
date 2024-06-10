@@ -1,0 +1,35 @@
+{% extends 'TRFC_VSLZR/layout.html' %}
+{% load widget_tweaks %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div style="background-color:#7a818a" class="jumbotron text-center">
+    <h1>Upload Your File</h1>
+</div>
+
+<main role="main" class="container">
+    <div class="row">
+        <div class="col"> 
+            <div style="background-color:#2d3033; margin-bottom: 8rem;" class="card border-secondary">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group col-md-8">                            
+                            <h5 style="margin-bottom: 0.4rem; margin-top: 0.2rem; margin-left: 0.5rem;" for="tag">Tag.</h5>
+                            {% render_field form.tag class="form-control" %}
+                            <h5 style="margin-bottom: 0.4rem; margin-top: 1rem; margin-left: 0.5rem;" for="json">File.</h5>
+                            {% render_field form.json class="form-control" %}
+                        </div>
+                        <button style="margin-top: 0.5rem; margin-bottom: 0.4rem; margin-left: 1.4rem;" type="submit" class="btn btn-outline-light">Upload file</button>
+                    </form>    
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+  
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'TRFC_VSLZR/layout.html' %}
+
+{% block body %}
+    <div style="background-color:#7a818a" class="jumbotron text-center">
+        <h1>Welcome to the Traffic Visualizer</h1>
+        <p class="lead">This app provides the tools necesary to keep track of the individual packets across a line card.
+    </div>
+
+        <div class="home-container">
+            
+            <article style="padding: 15px 65px;" class="media home-block ">
+                <div class="media-body">
+                    <div style="display:flex; justify-content:space-between;">
+                        <h2><a class="home-title" href="\upload">Upload</a></h2>                
+                    </div>
+                </div>
+            </article>
+            <article style="padding: 15px 58px;" class="media home-block ">
+                <div class="media-body">
+                    <div style="display:flex; justify-content:space-between;">
+                        <h2><a class="home-title" href="\available">File List</a></h2>                
+                    </div>
+                </div>
+            </article>
+            <article style="padding: 15px 78px;" class="media home-block ">
+                <div class="media-body">
+                    <div style="display:flex; justify-content:space-between;">
+                        <h2><a class="home-title" href="https://youtu.be/PbsJrJ5oBeI" target="_blank">Demo</a></h2>                
+                    </div>
+                </div>
+            </article>
+        </div>
+
+{% endblock %}

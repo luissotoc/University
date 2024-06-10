@@ -1,0 +1,39 @@
+{% extends 'TRFC_VSLZR/layout.html' %}
+
+{% block body %}
+
+    <div style="background-color:#7a818a" class="jumbotron text-center">
+        <h1 class="caps">Packet ID: {{ packet.id_num }} </h1>
+        <hr style="color: #afb4bb;">
+        <h3 class="caps">Module: {{ module.module_name }}</h3>
+        <h5 class="caps">File: {{ uploaded_file.json}}</h5>
+    </div>
+
+    
+    <div class="container">
+        <div style="margin-left: 20px;" class="col-md-8">
+            <p style="margin-left: 10px;" class="lead">Search the packet record results:</p>
+            <form class="form-inline" method="POST">
+                {% csrf_token %}
+                    <input style="margin-left: 10px;"" type="text" name="search" class="form-control">
+                    <button style="margin-left: 20px;" type="submit" value="submit" class="btn btn-outline-light">Search</button>
+            </form>
+            <hr>
+            <p class="lead">Results:</p>  
+
+            <table>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+                {% for item in content %}
+                <tr>
+                  <td>{{ item.0 }}</td>
+                  <td>{{ item.1 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+                
+        </div>
+    </div>
+{% endblock %}

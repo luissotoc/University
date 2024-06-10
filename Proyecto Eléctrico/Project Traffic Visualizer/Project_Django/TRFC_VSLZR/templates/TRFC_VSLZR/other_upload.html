@@ -1,0 +1,58 @@
+{% extends 'TRFC_VSLZR/layout.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+    <div style="background-color:#7a818a" class="jumbotron text-center">
+        <h1>Upload your file.</h1>
+    </div>
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col"> 
+                <div style="background-color:#2d3033;" class="card border-secondary">
+                    <div class="card-body"></div>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                
+                            {{ form|crispy }}
+                            <button style="margin-left: 2rem; margin-bottom: 2rem; margin-top: 2rem;" type="submit" class="btn btn-outline-light">Upload file</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <br>
+    <br>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col"> 
+                <div style="background-color:#2d3033;" class="card border-secondary">
+                    <div class="card-body"></div>
+                        <form>
+                            <div class="form-group">
+                              <h4 style="margin-left: 2.5rem;" for="TagInput">Tag.</h4>
+                              <input style="margin-left: 2rem;" type="text" class="col-md-8 form-control" id="taginput" placeholder="Tag">
+                            </div>
+                        </form>
+                        <form action="upload" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <h4 style="margin-left: 2.5rem;" for="FileInput">File.</h4>
+                            <div class="form-group">
+                                <div class="col-md-8 custom-file">
+                                    <input type="file" class="custom-file-input" name="jsonfile">
+                                    <label style="margin-left: 2rem;" class="custom-file-label" for="jsonfile">Select file...</label>
+                                    <div class="invalid-feedback">Select a file before uploading.</div>
+                                </div>
+                            </div>
+                            <button style="margin-left: 2rem; margin-bottom: 2rem;" type="submit" class="btn btn-outline-light">Upload file</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+{% endblock %}

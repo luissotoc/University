@@ -1,0 +1,27 @@
+{% extends 'TRFC_VSLZR/layout.html' %}
+
+{% block body %}
+    <div style="background-color:#7a818a" class="jumbotron text-center">
+        <h1>Currently available files.</h1>
+    </div>
+    <div style="margin-left: auto;margin-right: auto;margin-bottom: 5rem;" class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tag</th>
+                    <th>Filename</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for uploadedFile in uploadedFiles %}
+                    <tr>
+                        <th>{{ uploadedFile.tag }}</th>
+                        <th>{{ uploadedFile.json.name }}</th>
+                        <th>{{ uploadedFile.date|date:"F d, Y. H:i" }}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

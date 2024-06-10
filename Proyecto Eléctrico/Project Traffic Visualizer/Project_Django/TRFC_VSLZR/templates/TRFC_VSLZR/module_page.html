@@ -1,0 +1,121 @@
+{% extends 'TRFC_VSLZR/layout.html' %}
+{% load custom_filters %}
+
+
+{% block body %}
+    
+    <div style="background-color:#7a818a" class="jumbotron text-center">
+        <h1 class="caps">Traffic Visualizer: File {{ current_file.tag }} </h1>
+        <hr>
+        <h3>Uploaded on {{ current_file.date|date:"F d, Y" }} at {{ current_file.date|date:"H:i." }}</h3>
+        <h5 class="caps"> Filename: {{ current_file.json }}</h5>
+    </div>
+
+    <p style="margin-left: 50px;" class="lead">Select the module you would like to examine:</p>
+
+    <div class="container">
+      <form class="form" method="POST">
+          {% csrf_token %}
+        <select style="width: 300px; display: inline;" class="form-control" name="selected_module" id="selected_module">
+          <option value="null">-- Select Module --</option>
+          {% for module in modules_on_file %}
+            <option value="{{ module.module_name }}"
+              {% if s_module == module.module_name %} selected="selected" {% endif %}>
+              {{ module.module_name }}
+            </option>
+          {% endfor %}
+        </select>
+        <div style="margin: 0px 20px; display: inline" class="form-check">
+          <input style="margin-top: 12px;" class="form-check-input" type="checkbox" id="gridCheck" name="show_dropped" {% if chck_drop == True %} checked {% endif%}>
+          <label class="form-check-label" for="gridCheck">
+            Show dropped
+          </label>
+        </div>
+        <button type="submit" value="submit" class="btn btn-outline-light">Select</button>                     
+      
+        <hr>
+        <p style="margin-left: 10px;" class="lead">Search a packet ID (optional):</p>
+            
+            <input style="width: 300px; display: inline" type="text" name="search" class="form-control">
+            <button style="margin-left: 20px; display: inline" type="submit" value="submit" class="btn btn-outline-light">Search</button>
+        </form>
+        <hr>
+
+    </div>
+    {% if chck_drop == True %}
+        <div class="wrap">
+            <div class="track-container">
+                <p style="margin-left: 50px; margin-top: 10px;" class="lead">Dropped:</p>
+                {% for packet in packets_to_show %}
+                    {% with result=results|get:forloop.counter0 %}
+                        {% if packet in packets_tracked and result.drop == True%}
+                            <article class="media 
+                            {% cycle 'module-block-L clear' 'module-block-L' 'module-block-L' 'module-block-L' %} module-red ">
+                                <div class="media-body">
+                                    <div class="module-data">
+                                        <h2><a class="module-title caps" href="{% url 'app-results' current_file.id s_module packet.id_num  %}" target="_blank">
+                                            {{ packet.id_num }}</a>
+                                        </h2>                     
+                                    </div>                  
+                                    <div class="module-drop">                    
+                                        <small>Dropped</small>                    
+                                    </div>
+                                </div>
+                            </article>     
+                        {% endif %} 
+                    {% endwith %}
+                {% endfor %}
+            
+                <hr style="width: 1110px;" class="clear">
+                <p style="margin-left: 50px; margin-top: 25px;" class="lead">Received:</p>
+                {% for packet in packets_to_show %}
+                    {% with result=results|get:forloop.counter0 %}
+                        {% if packet in packets_tracked and result.drop == False and chck_drop == True %}
+                            <article class="media 
+                            {% cycle 'module-block-L clear' 'module-block-L' 'module-block-L' 'module-block-L' %} module-green">
+                                <div class="media-body">
+                                    <div class="module-data">
+                                        <h2><a class="module-title caps" href="{% url 'app-results' current_file.id s_module packet.id_num  %}" target="_blank">
+                                            {{ packet.id_num }}</a>
+                                        </h2>                     
+                                    </div>
+                                </div>
+                            </article>
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="wrap">
+            <div class="track-container">
+                {% for packet in packets_to_show %}
+                    {% with result=results|get:forloop.counter0 %}
+                        {% if packet in packets_tracked or s_module == 'null' %} 
+                        <article class="media 
+                        {% cycle 'module-block-L clear' 'module-block-L' 'module-block-L' 'module-block-L' %} 
+                        {% if s_module == 'null' %} 
+                        module-gray
+                        {% else %}
+                        module-green
+                        {% endif %}">
+                        <div class="media-body">
+                            <div class="module-data">
+                                <h2><a class="module-title caps"  
+                                    {% if s_module != 'null' %}
+                                        href="{% url 'app-results' current_file.id s_module packet.id_num  %}" target="_blank"
+                                    {% endif %}>
+                                    {{ packet.id_num }}</a>
+                                </h2>             
+                            </div>
+                        </div>
+                        </article>
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

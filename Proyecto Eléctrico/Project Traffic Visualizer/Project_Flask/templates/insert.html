@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="jumbotron text-center">
+    <h1>Insert your file</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        
+            <h1>Upload your file</h1>
+            <hr>
+            <form action="insert" method="POST" enctype="multipart/form-data">
+                
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="jsonfile" id="jsonfile">
+                        <label class="custom-file-label" for="jsonfile">Select file...</label>
+                    </div>
+                </div>
+            
+                <button type="submit" class="btn btn-primary">Upload file</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+    <form method="post" action="#" id="#">
+     
+        
+        
+        
+        <div class="form-group files">
+          <label>Upload Your File </label>
+          <input type="file" id="real-file" hidden="hidden"/>
+          <button type="button" id="custom-button">UPLOAD YOUR FILE</button>
+          <span id="custom-text">No file selected.</span>
+        </div>
+        
+      
+    </form>
+    
+    
+</div>
+  
+{% endblock %}
